@@ -116,16 +116,6 @@ export default function AuthPage({ initialMode = "signin" }: { initialMode?: "si
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Back to home link */}
-      <Link
-        href="/"
-        className="absolute top-6 left-6 flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors z-20"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        Back to Home
-      </Link>
 
       <div className="relative w-full max-w-md bg-white/90 backdrop-blur-2xl border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/50 p-7 sm:p-9">
         {/* Brand Header */}

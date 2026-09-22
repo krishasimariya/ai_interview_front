@@ -69,7 +69,6 @@ export default function DashboardPage() {
 
   // Form state
   const [selectedRole, setSelectedRole] = useState("Full-Stack Developer");
-  const selectedType = "Voice AI Mock Interview";
   const [selectedLevel, setSelectedLevel] = useState("Medium Level");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [parsedSkills, setParsedSkills] = useState<string[]>(DEFAULT_SKILLS_BY_ROLE["Full-Stack Developer"]);
@@ -109,17 +108,38 @@ export default function DashboardPage() {
     router.push("/login");
   };
 
-  const handleFileChange = (file: File | null) => {
+  const handleFileChange = async (file: File | null) => {
     if (!file) return;
     setResumeFile(file);
     setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      const skills = DEFAULT_SKILLS_BY_ROLE[selectedRole] || ["JavaScript", "Python", "REST APIs"];
-      // Add simulated resume-specific skills
-      const customAdded = ["Git / CI-CD", "Unit Testing", ...skills];
-      setParsedSkills(Array.from(new Set(customAdded)));
-    }, 1200);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("http://127.0.0.1:8000/api/extract-resume", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.extracted_skills && Array.isArray(data.extracted_skills) && data.extracted_skills.length > 0) {
+          const roleSkills = DEFAULT_SKILLS_BY_ROLE[selectedRole] || [];
+          const merged = Array.from(new Set([...data.extracted_skills, ...roleSkills]));
+          setParsedSkills(merged);
+          setIsUploading(false);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Resume extraction API notice (using local skills):", err);
+    }
+
+    const skills = DEFAULT_SKILLS_BY_ROLE[selectedRole] || ["JavaScript", "Python", "REST APIs"];
+    const customAdded = ["Git / CI-CD", "Unit Testing", ...skills];
+    setParsedSkills(Array.from(new Set(customAdded)));
+    setIsUploading(false);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -150,7 +170,6 @@ export default function DashboardPage() {
       userName,
       userEmail,
       targetRole: selectedRole,
-      interviewType: selectedType,
       interviewLevel: selectedLevel,
       resumeFileName: resumeFile?.name || "",
       resumeSkills: parsedSkills.join(", "),
@@ -165,7 +184,6 @@ export default function DashboardPage() {
           user_email: userEmail,
           user_name: userName,
           target_role: selectedRole,
-          interview_type: selectedType,
           interview_level: selectedLevel,
           resume_filename: resumeFile?.name || "",
           resume_skills: parsedSkills.join(", "),
@@ -449,11 +467,10 @@ export default function DashboardPage() {
                 <span className="text-[10px] text-indigo-600 font-medium">Ready for launch</span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 {[
                   { label: "Candidate", value: userName || "Candidate", icon: <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg> },
                   { label: "Target Role", value: selectedRole, icon: <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> },
-                  { label: "Format", value: selectedType, icon: <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg> },
                   { label: "Seniority", value: selectedLevel, icon: <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> },
                 ].map(({ label, value, icon }) => (
                   <div key={label} className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm">

@@ -92,6 +92,8 @@ export default function VoiceInterviewPage() {
   const [callDuration, setCallDuration] = useState(0);
   const [copied, setCopied] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [dynamicQuestions, setDynamicQuestions] = useState<string[]>([]);
+  const [isGeneratingQuestions, setIsGeneratingQuestions] = useState(false);
 
   // Live speech & typed answer inputs
   const [liveTranscript, setLiveTranscript] = useState("");
@@ -169,12 +171,64 @@ export default function VoiceInterviewPage() {
       setMessages([
         {
           role: "system",
-          text: `Welcome ${candidateName}! You are configured for a "${interviewType}" session for ${targetRole} (${interviewLevel}). Click "Start Voice Interview Now" to begin.`,
+          text: `Welcome ${candidateName}! You are configured for a "${interviewType}" session for ${targetRole} (${interviewLevel})${resumeSkills ? ` with focus on: ${resumeSkills}` : ""}. Click "Start Voice Interview Now" to begin.`,
           ts: now(),
         },
       ]);
     }
-  }, [candidateName, targetRole, interviewLevel, interviewType]);
+  }, [candidateName, targetRole, interviewLevel, interviewType, resumeSkills]);
+
+  // Dynamically load tailored questions based on Target Role, Interview Level, and Resume Skills
+  useEffect(() => {
+    let isMounted = true;
+    setIsGeneratingQuestions(true);
+
+    const loadQuestions = async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/generate-questions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            candidate_name: candidateName,
+            target_role: targetRole,
+            interview_level: interviewLevel,
+            resume_skills: resumeSkills,
+          }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.questions && Array.isArray(data.questions) && data.questions.length > 0) {
+            if (isMounted) {
+              setDynamicQuestions(data.questions);
+              setIsGeneratingQuestions(false);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Backend question generator notice:", e);
+      }
+
+      if (isMounted) {
+        const topSkills = resumeSkills ? resumeSkills.split(",").slice(0, 3).map((s) => s.trim()).join(", ") : targetRole;
+        const primary = resumeSkills ? resumeSkills.split(",")[0].trim() : targetRole;
+        const fallback = [
+          `Hello ${candidateName}! Welcome to your ${interviewLevel} mock interview for the ${targetRole} position. Based on your background in ${topSkills}, could you introduce yourself and walk me through a major project where you applied these technologies?`,
+          `When developing scalable applications using ${primary}, what key architectural patterns and error handling strategies do you prioritize?`,
+          `Could you describe a challenging technical roadblock, concurrency issue, or system bottleneck you encountered, and how you resolved it?`,
+          `Can you share a situation where technical requirements or deadlines shifted unexpectedly? How did you adapt and communicate with your team?`,
+        ];
+        setDynamicQuestions(fallback);
+        setIsGeneratingQuestions(false);
+      }
+    };
+
+    loadQuestions();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [candidateName, targetRole, interviewLevel, resumeSkills]);
 
   // Auto scroll transcript
   useEffect(() => {
@@ -367,21 +421,26 @@ export default function VoiceInterviewPage() {
   };
 
   const processCandidateAnswer = (candidateAnswer: string) => {
-    const questions = ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"];
+    const questionsToAsk = dynamicQuestions.length > 0
+      ? dynamicQuestions
+      : (ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"]);
     const nextIdx = questionIndex + 1;
 
     setIsListening(false);
 
     setTimeout(() => {
-      if (nextIdx < questions.length) {
+      if (nextIdx < questionsToAsk.length) {
         setQuestionIndex(nextIdx);
-        const nextQ = `Great response! Here is your next question: ${questions[nextIdx]}`;
+        const rawQ = questionsToAsk[nextIdx];
+        const nextQ = rawQ.startsWith("Great") || rawQ.startsWith("Hello")
+          ? rawQ
+          : `Great response! Here is your next question: ${rawQ}`;
         addMsg("assistant", nextQ);
         speakWithBrowserVoice(nextQ, () => {
           startBrowserListening();
         });
       } else {
-        const wrapUp = `Thank you ${candidateName}. That concludes our mock interview session! You demonstrated excellent communication and structured answers. Great job!`;
+        const wrapUp = `Thank you ${candidateName}. That concludes our mock interview session! You demonstrated strong technical insights for a ${interviewLevel} ${targetRole}. Great job!`;
         addMsg("assistant", wrapUp);
         speakWithBrowserVoice(wrapUp, () => {
           setIsCalling(false);
@@ -445,21 +504,32 @@ export default function VoiceInterviewPage() {
         if (assistantId && !assistantId.includes("YOUR_")) {
           await vapi.start(assistantId);
         } else {
+          const systemPrompt = `You are an expert AI Technical Interviewer conducting a ${interviewLevel} mock interview for ${candidateName} applying for a ${targetRole} position.
+Candidate Resume Skills & Technologies: ${resumeSkills || "Software Engineering, Core Development"}.
+
+Interview Directives:
+1. Calibrate all questions strictly to a ${interviewLevel} technical standard.
+2. Directly evaluate their hands-on competency in their stated resume skills (${resumeSkills || targetRole}).
+3. Ask ONE focused, concise question at a time and listen attentively to their response.
+4. Give a brief, encouraging acknowledgement of their response before presenting the next question.
+5. Begin immediately by warmly welcoming ${candidateName} to their ${interviewLevel} ${targetRole} interview and asking your first question based on their experience with ${resumeSkills ? resumeSkills.split(",")[0].trim() : targetRole}.`;
+
           const vapiConfig: any = {
             name: "AI Technical Interviewer",
+            firstMessage: `Hello ${candidateName}! Welcome to your ${interviewLevel} mock interview for the ${targetRole} role. To get started, I see you have experience with ${resumeSkills ? resumeSkills.split(",").slice(0, 2).join(" and ") : targetRole}. Could you introduce yourself and tell me about a project where you used these skills?`,
             model: {
               provider: "openai" as const,
               model: "gpt-3.5-turbo",
               messages: [
                 {
                   role: "system" as const,
-                  content: `You are an expert AI Technical Interviewer interviewing ${candidateName} for ${targetRole} (${interviewLevel}). Ask one clear question at a time.`,
+                  content: systemPrompt,
                 },
               ],
             },
             voice: { provider: "11labs" as const, voiceId: "paula" },
           };
-          console.log("✅ Starting Vapi with model configuration:", vapiConfig.model);
+          console.log("✅ Starting Vapi with tailored model configuration:", vapiConfig.model);
           await vapi.start(vapiConfig);
         }
         return;
@@ -477,10 +547,13 @@ export default function VoiceInterviewPage() {
       setIsCalling(true);
       setQuestionIndex(0);
 
-      const questions = ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"];
-      const firstQ = `Hello ${candidateName}! Welcome to your ${targetRole} mock interview. Let's begin with our first question: ${questions[0]}`;
+      const questionsToAsk = dynamicQuestions.length > 0
+        ? dynamicQuestions
+        : (ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"]);
 
-      addMsg("system", "🎙️ Voice AI Interview started (Microphone Active). Answer by speaking or typing below!");
+      const firstQ = questionsToAsk[0];
+
+      addMsg("system", `🎙️ Voice AI Interview started (${interviewLevel} · ${targetRole}). Questions tailored to your resume skills!`);
       addMsg("assistant", firstQ);
 
       speakWithBrowserVoice(firstQ, () => {
@@ -847,6 +920,36 @@ export default function VoiceInterviewPage() {
                   : "Ready to Start Interview"}
               </span>
             </div>
+          </div>
+
+          {/* Candidate Context & Personalization Banner */}
+          <div className="w-full mt-3 p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-left">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1">
+                <span>🎯</span> Interview Personalization
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-800 font-semibold">
+                {interviewLevel}
+              </span>
+            </div>
+            <p className="text-xs font-semibold text-slate-800">
+              Role: <span className="text-indigo-600">{targetRole}</span>
+            </p>
+            {resumeSkills && (
+              <p className="text-[11px] text-slate-600 mt-1 line-clamp-2">
+                <span className="font-semibold text-slate-700">Resume Skills:</span> {resumeSkills}
+              </p>
+            )}
+            {isGeneratingQuestions ? (
+              <p className="text-[10px] text-indigo-500 mt-1.5 flex items-center gap-1.5 font-medium">
+                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping inline-block" />
+                Crafting tailored questions from your resume...
+              </p>
+            ) : dynamicQuestions.length > 0 ? (
+              <p className="text-[10px] text-emerald-600 font-semibold mt-1.5 flex items-center gap-1">
+                <span>✓</span> {dynamicQuestions.length} tailored questions ready
+              </p>
+            ) : null}
           </div>
 
           {/* Concentric Pulsing Mic Visualizer */}

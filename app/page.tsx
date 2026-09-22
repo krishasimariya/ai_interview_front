@@ -23,42 +23,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAFAFA] text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900 flex flex-col">
       
-      {/* Navbar */}
-      <nav className="flex items-center justify-between px-6 sm:px-12 py-6 max-w-7xl mx-auto w-full">
-        {/* Left Side: Logo & Links */}
-        <div className="flex items-center gap-10">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center shadow-sm">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900">
-              InterviewAI
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <Link href="#about" className="hover:text-slate-900 transition-colors">About Us</Link>
-            <Link href="#contact" className="hover:text-slate-900 transition-colors">Contact</Link>
-            <Link href="/dashboard" className="hover:text-slate-900 transition-colors">Dashboard</Link>
-          </div>
-        </div>
-
-        {/* Right Side: Auth */}
-        <div className="flex items-center gap-4 text-sm font-medium">
-          <Link href="/login" className="text-slate-500 hover:text-slate-900 transition-colors hidden sm:block">
-            Sign In
-          </Link>
-          <Link
-            href="/signup"
-            className="px-5 py-2.5 rounded-full bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-sm"
-          >
-            Sign Up
-          </Link>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto text-center pt-20 pb-16 px-6 flex-1 flex flex-col justify-center">
