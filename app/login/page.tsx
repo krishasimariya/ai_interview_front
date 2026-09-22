@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -12,6 +12,21 @@ export default function AuthPage({ initialMode = "signin" }: { initialMode?: "si
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // If already logged in, redirect directly to dashboard
+  useEffect(() => {
+    const raw = localStorage.getItem("ai_user_session");
+    if (raw) {
+      try {
+        const session = JSON.parse(raw);
+        if (session.email) {
+          router.replace("/dashboard");
+        }
+      } catch {
+        localStorage.removeItem("ai_user_session");
+      }
+    }
+  }, [router]);
 
   const [formData, setFormData] = useState({
     name: "",

@@ -12,42 +12,76 @@ interface Message {
 
 const ROLE_QUESTIONS: Record<string, string[]> = {
   "Behavioral & Leadership": [
-    "Tell me about a time you had to resolve a serious disagreement within your team. What was the conflict, and how did you reach an agreement?",
-    "Can you share an example of a project where requirements changed unexpectedly? How did you adapt your plan and communicate with stakeholders?",
-    "Describe a situation where you had to lead a critical initiative under tight deadlines. How did you prioritize tasks and keep the team motivated?",
-    "Tell me about a mistake you made in a past role. What happened, what did you learn, and what would you do differently today?",
-    "How do you handle giving difficult feedback to a peer or direct report while maintaining a positive working relationship?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, tell me about your background, and share what motivated you to pursue this career path?",
+    "Question 2: Tell me about a time you had to resolve a serious technical or interpersonal disagreement within your team. How did you reach consensus?",
+    "Question 3: Can you share an example of a project where requirements changed unexpectedly mid-flight? How did you adapt your plan and communicate with stakeholders?",
+    "Question 4: Describe a situation where you had to lead a critical initiative under tight deadlines. How did you prioritize tasks and keep the team motivated?",
+    "Question 5: Tell me about a significant mistake or oversight you made in a past project. What happened, how did you rectify it, and what did you learn?",
+    "Question 6: How do you handle giving difficult constructive feedback to a peer or cross-functional partner while maintaining a positive working relationship?",
+    "Question 7: Can you describe a scenario where you had to push back on unrealistic timelines from leadership to protect team health or code quality?",
+    "Question 8: How do you maintain psychological safety and foster inclusive collaboration within engineering discussions?",
+    "Question 9: Tell me about a time you mentored a junior or struggling team member to help them overcome technical hurdles.",
+    "Question 10: To conclude, what leadership values do you believe are most critical for building high-performing engineering organizations?"
   ],
   "Full-Stack Developer": [
-    "How do you approach architecting a scalable web application from frontend state management down to database schema design?",
-    "Can you explain how you handle authentication and authorization across Next.js and backend microservices?",
-    "What strategies do you use to optimize performance on both the client (e.g. Core Web Vitals) and the database query layer?",
-    "Describe a complex API integration you built. What trade-offs did you consider between REST and GraphQL/WebSockets?",
-    "How do you ensure test coverage across end-to-end user flows and backend business logic?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, tell me about your professional background, and share an overview of your experience building web applications?",
+    "Question 2: To begin our technical discussion: could you walk me through the architecture of a full-stack application you engineered from conception to production?",
+    "Question 3: How do you approach designing API contracts and data models to ensure seamless synchronization between frontend UI state and backend databases?",
+    "Question 4: Can you explain how you handle authentication, session persistence, and authorization across Next.js and backend microservices?",
+    "Question 5: What strategies do you use to optimize performance on both the client (Core Web Vitals, bundle splitting) and the database query layer?",
+    "Question 6: Describe a complex API integration you built. What trade-offs did you consider between REST, GraphQL, and WebSockets?",
+    "Question 7: How do you approach automated testing across unit tests, API integration tests, and end-to-end flows?",
+    "Question 8: How do you manage database migrations and schema changes in a live production environment without causing downtime?",
+    "Question 9: Tell me about a challenging race condition or state synchronization bug you resolved in a distributed or multi-tenant system.",
+    "Question 10: Finally, how do you balance the trade-offs between shipping features quickly versus paying down technical debt?"
   ],
   "Frontend Engineer": [
-    "Can you explain the difference between Server Components and Client Components in Next.js App Router, and when to use each?",
-    "How do you structure large-scale React applications to prevent unnecessary re-renders and keep bundle sizes small?",
-    "Describe your approach to building an accessible, responsive design system with CSS and component libraries.",
-    "How do you handle complex client-side state, caching, and optimistic UI updates?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, share an overview of your background, and highlight your experience with modern frontend technologies?",
+    "Question 2: To start our technical discussion: could you describe a complex frontend application or interactive user interface you built, and the design decisions you made?",
+    "Question 3: Can you explain the core differences between Server Components and Client Components in Next.js App Router, and when you choose each?",
+    "Question 4: How do you structure large-scale React applications to prevent unnecessary re-renders, optimize tree shaking, and minimize bundle sizes?",
+    "Question 5: Describe your approach to designing an accessible (WCAG compliant), responsive design system using CSS, Tailwind, or styled primitives.",
+    "Question 6: How do you handle complex client-side state, cache invalidation, and optimistic UI updates when interacting with backend APIs?",
+    "Question 7: What tooling and profiling techniques do you use to diagnose and fix Core Web Vitals issues such as Largest Contentful Paint (LCP) and Cumulative Layout Shift (CLS)?",
+    "Question 8: How do you approach client-side error boundaries, fallback UI states, and telemetry logging for production runtime errors?",
+    "Question 9: Can you explain your strategies for managing real-time data streaming (e.g., SSE, WebSockets) within React component lifecycles?",
+    "Question 10: To wrap up, where do you see the future of frontend architecture heading with modern edge computing and AI-assisted interfaces?"
   ],
   "Backend Engineer": [
-    "How do you design database schemas for high-concurrency read/write operations while ensuring ACID compliance?",
-    "Can you walk me through your experience building asynchronous event-driven pipelines using message brokers like Kafka or RabbitMQ?",
-    "What caching strategies (e.g. Redis Cache-Aside, Write-Through) do you implement to reduce database load?",
-    "How do you monitor, log, and trace distributed requests across microservices?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, walk me through your background, and share an overview of your experience in backend engineering?",
+    "Question 2: To begin our technical discussion: could you walk me through the backend architecture of a high-throughput service or API you engineered?",
+    "Question 3: How do you design relational and non-relational database schemas for high-concurrency read/write operations while ensuring ACID properties?",
+    "Question 4: Can you walk me through your experience building asynchronous event-driven pipelines using message brokers like Kafka, RabbitMQ, or SQS?",
+    "Question 5: What caching strategies (e.g. Redis Cache-Aside, Write-Through, distributed caches) do you implement to reduce database load?",
+    "Question 6: How do you monitor, trace, and correlate distributed requests across microservices using OpenTelemetry or distributed log aggregators?",
+    "Question 7: Tell me about a severe performance bottleneck or memory leak you diagnosed in a backend service. What was the root cause and fix?",
+    "Question 8: How do you implement robust circuit breaking, retry policies with exponential backoff, and graceful degradation under service outages?",
+    "Question 9: How do you ensure idempotent request processing and prevent duplicate transaction charges in payment or financial workflows?",
+    "Question 10: For our final question, what key metrics and SLIs/SLOs do you consider non-negotiable for enterprise backend reliability?"
   ],
   "AI / ML Engineer": [
-    "Can you explain how you design and evaluate a Retrieval-Augmented Generation (RAG) pipeline for domain-specific knowledge?",
-    "What strategies do you use to minimize hallucination and latency in production LLM applications?",
-    "How do you choose between fine-tuning a foundation model versus prompt engineering and contextual retrieval?",
-    "What vector database indexing algorithms (e.g. HNSW, IVF) do you recommend for high-dimensional semantic search?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, share an overview of your background, and tell me about your experience working with AI, ML, or data systems?",
+    "Question 2: To begin our technical discussion: could you describe an end-to-end Machine Learning or LLM project you designed and deployed to production?",
+    "Question 3: Can you explain how you design and evaluate a Retrieval-Augmented Generation (RAG) pipeline for domain-specific enterprise knowledge?",
+    "Question 4: What strategies and guardrails do you implement to minimize hallucination, latency, and token consumption in production LLM applications?",
+    "Question 5: How do you choose between fine-tuning a foundation model (e.g. LoRA, QLoRA) versus few-shot prompt engineering and contextual retrieval?",
+    "Question 6: What vector database indexing algorithms (e.g. HNSW, IVF) do you recommend for high-dimensional semantic search at scale?",
+    "Question 7: How do you handle data preprocessing, chunking strategies, embeddings normalization, and hybrid semantic-plus-lexical search?",
+    "Question 8: How do you detect and mitigate model drift, data distribution shifts, and adversarial prompt injections in deployed systems?",
+    "Question 9: Describe your workflow for serving ML models with low latency using tools like Triton, vLLM, TensorRT-LLM, or FastAPI?",
+    "Question 10: To conclude our session, how do you see autonomous multi-agent systems and reasoning models impacting software engineering?"
   ],
   "System Design Expert": [
-    "How would you design a URL shortener like Bitly capable of handling 100M active daily users with high availability?",
-    "What architectural patterns would you use to design a globally distributed real-time chat application with minimal latency?",
-    "How do you handle database sharding and data consistency across distributed replicas?",
-    "How would you architect a rate-limiting service to prevent DDoS and API abuse in a microservices ecosystem?"
+    "Question 1: Welcome! To get started with our interview, could you please introduce yourself, walk me through your engineering journey, and share an overview of your experience architecting large-scale systems?",
+    "Question 2: To start our technical architecture discussion: how do you approach scoping requirements and capacity planning when designing a planetary-scale distributed system?",
+    "Question 3: How would you design a URL shortener like Bitly capable of handling 100M active daily users with high availability and low latency?",
+    "Question 4: What architectural patterns would you use to design a globally distributed real-time messaging system (like Slack or WhatsApp)?",
+    "Question 5: How do you handle database horizontal sharding, consistent hashing, and data rebalancing across distributed storage clusters?",
+    "Question 6: How would you architect a distributed rate-limiting service (e.g. Token Bucket / Leaky Bucket) to protect microservices against DDoS abuse?",
+    "Question 7: When designing distributed storage, how do you navigate the CAP theorem trade-offs between strong consistency and high availability?",
+    "Question 8: How would you architect a video streaming and transcoding pipeline similar to YouTube or Netflix?",
+    "Question 9: Describe how you would build a distributed search and indexing engine like Elasticsearch to ingest and query terabytes of logs daily?",
+    "Question 10: To wrap up our interview, what core heuristics do you rely on when designing systems that must scale gracefully by 100x?"
   ]
 };
 
@@ -79,8 +113,8 @@ export default function VoiceInterviewPage() {
   const [interviewType, setInterviewType] = useState("Voice AI Mock Interview");
   const [resumeSkills, setResumeSkills] = useState("");
 
-  // Engine selection: 'browser' or 'vapi'
-  const [engineMode, setEngineMode] = useState<"browser" | "vapi">("browser");
+  // Engine selection: Default to 'vapi' if key exists, otherwise 'browser'
+  const [engineMode, setEngineMode] = useState<"browser" | "vapi">("vapi");
 
   // Call states
   const [isCalling, setIsCalling] = useState(false);
@@ -100,14 +134,15 @@ export default function VoiceInterviewPage() {
   const [typedAnswer, setTypedAnswer] = useState("");
   const [speechSupported, setSpeechSupported] = useState(true);
 
-  // Vapi API settings
+  // Vapi API settings - Preloaded from environment variables
   const [showConfig, setShowConfig] = useState(false);
-  const [vapiKey, setVapiKey] = useState("");
-  const [assistantId, setAssistantId] = useState("");
+  const [vapiKey, setVapiKey] = useState(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || "7544f573-7174-4a7c-abea-a201e231590a");
+  const [assistantId, setAssistantId] = useState(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "83f75cc5-3440-4f4c-ab78-fa88ac3c5ca5");
   const [isEvaluating, setIsEvaluating] = useState(false);
 
   // Transcripts & refs
   const [messages, setMessages] = useState<Message[]>([]);
+  const messagesRef = useRef<Message[]>([]);
   const transcriptRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const vapiRef = useRef<any>(null);
@@ -115,18 +150,27 @@ export default function VoiceInterviewPage() {
   const synthRef = useRef<SpeechSynthesis | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
+  const isCallEndedRef = useRef<boolean>(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const pendingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const autoFinishSafetyTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const speechBufferRef = useRef<string>("");
+  const speechSilenceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const vapiUserBufferRef = useRef<string>("");
+  const vapiUserTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Check browser speech support on mount
+  // Check browser speech support and load preferences on mount
   useEffect(() => {
     const session = localStorage.getItem("ai_user_session");
     const config = localStorage.getItem("ai_interview_config");
-    const savedKey = localStorage.getItem("vapi_public_key") || process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || "";
-    const savedAssistant = localStorage.getItem("vapi_assistant_id") || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "";
-    const savedEngine = (localStorage.getItem("ai_voice_engine") as "browser" | "vapi") || "browser";
+    const savedKey = localStorage.getItem("vapi_public_key") || process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || "7544f573-7174-4a7c-abea-a201e231590a";
+    const savedAssistant = localStorage.getItem("vapi_assistant_id") || process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "83f75cc5-3440-4f4c-ab78-fa88ac3c5ca5";
+    const savedEngine = (localStorage.getItem("ai_voice_engine") as "browser" | "vapi") || "vapi";
 
     if (savedKey && !savedKey.includes("YOUR_")) setVapiKey(savedKey);
     if (savedAssistant && !savedAssistant.includes("YOUR_")) setAssistantId(savedAssistant);
-    setEngineMode(savedEngine);
+    setEngineMode(savedEngine || "vapi");
 
     if (typeof window !== "undefined") {
       if ("speechSynthesis" in window) {
@@ -162,8 +206,22 @@ export default function VoiceInterviewPage() {
 
   const now = () => new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-  const addMsg = (role: Message["role"], text: string) =>
-    setMessages((prev) => [...prev, { role, text, ts: now() }]);
+  const addMsg = (role: Message["role"], text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+
+    // Safety merging for consecutive same-role messages (avoids fragmented single-word bubbles)
+    const lastMsg = messagesRef.current[messagesRef.current.length - 1];
+    if (lastMsg && lastMsg.role === role && role !== "system") {
+      lastMsg.text = `${lastMsg.text} ${trimmed}`.trim();
+      setMessages([...messagesRef.current]);
+      return;
+    }
+
+    const newMsg: Message = { role, text: trimmed, ts: now() };
+    messagesRef.current.push(newMsg);
+    setMessages((prev) => [...prev, newMsg]);
+  };
 
   // Welcome greeting
   useEffect(() => {
@@ -210,13 +268,19 @@ export default function VoiceInterviewPage() {
       }
 
       if (isMounted) {
-        const topSkills = resumeSkills ? resumeSkills.split(",").slice(0, 3).map((s) => s.trim()).join(", ") : targetRole;
         const primary = resumeSkills ? resumeSkills.split(",")[0].trim() : targetRole;
+        const introQ = `Question 1: Hello ${candidateName}! Welcome to your ${interviewLevel} interview for the ${targetRole} position. To get started, could you please introduce yourself, tell me about your background, and share an overview of your key skills and experience?`;
         const fallback = [
-          `Hello ${candidateName}! Welcome to your ${interviewLevel} mock interview for the ${targetRole} position. Based on your background in ${topSkills}, could you introduce yourself and walk me through a major project where you applied these technologies?`,
-          `When developing scalable applications using ${primary}, what key architectural patterns and error handling strategies do you prioritize?`,
-          `Could you describe a challenging technical roadblock, concurrency issue, or system bottleneck you encountered, and how you resolved it?`,
-          `Can you share a situation where technical requirements or deadlines shifted unexpectedly? How did you adapt and communicate with your team?`,
+          introQ,
+          `Question 2: To begin our technical discussion: based on your experience with ${primary}, what key architectural patterns and error handling strategies do you prioritize when building scalable systems?`,
+          `Question 3: How do you structure data models and manage state consistency across service boundaries?`,
+          `Question 4: Could you describe a challenging technical roadblock, concurrency issue, or system bottleneck you encountered, and how you resolved it?`,
+          `Question 5: What caching and optimization strategies do you rely on to reduce latency under heavy load?`,
+          `Question 6: How do you approach automated testing and continuous integration to guarantee software reliability?`,
+          `Question 7: Can you share a situation where technical requirements or deadlines shifted unexpectedly? How did you adapt and communicate with your team?`,
+          `Question 8: How do you handle constructive disagreement during architectural reviews with team members?`,
+          `Question 9: Describe your workflow for diagnosing a high-severity production issue with minimal system downtime.`,
+          `Question 10: To conclude our interview, what core engineering principles do you prioritize when building maintainable software for the long term?`
         ];
         setDynamicQuestions(fallback);
         setIsGeneratingQuestions(false);
@@ -293,15 +357,20 @@ export default function VoiceInterviewPage() {
   // Built-in Browser Voice Engine (Web Speech API)
   // -------------------------------------------------------------
   const speakWithBrowserVoice = (text: string, onEndCallback?: () => void) => {
+    if (isCallEndedRef.current) return;
     if (!synthRef.current) {
-      if (onEndCallback) onEndCallback();
+      if (onEndCallback && !isCallEndedRef.current) onEndCallback();
       return;
     }
 
-    synthRef.current.cancel();
+    try {
+      synthRef.current.cancel();
+    } catch {}
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1.0;
     utterance.pitch = 1.0;
+    activeUtteranceRef.current = utterance;
 
     const voices = synthRef.current.getVoices();
     const englishVoice =
@@ -316,27 +385,42 @@ export default function VoiceInterviewPage() {
     if (englishVoice) utterance.voice = englishVoice;
 
     utterance.onstart = () => {
+      if (isCallEndedRef.current) {
+        try { synthRef.current?.cancel(); } catch {}
+        activeUtteranceRef.current = null;
+        return;
+      }
       setIsSpeaking(true);
       setIsListening(false);
       setVolumeLevel(0.6);
     };
 
     utterance.onend = () => {
+      activeUtteranceRef.current = null;
       setIsSpeaking(false);
       setVolumeLevel(0);
+      if (isCallEndedRef.current) return;
       if (onEndCallback) onEndCallback();
     };
 
-    utterance.onerror = () => {
+    utterance.onerror = (e: any) => {
+      activeUtteranceRef.current = null;
       setIsSpeaking(false);
       setVolumeLevel(0);
+      // If utterance was canceled or call ended, NEVER restart or execute callbacks
+      if (isCallEndedRef.current || e.error === "canceled" || e.error === "interrupted") {
+        return;
+      }
       if (onEndCallback) onEndCallback();
     };
 
-    synthRef.current.speak(utterance);
+    if (!isCallEndedRef.current) {
+      synthRef.current.speak(utterance);
+    }
   };
 
   const startBrowserListening = () => {
+    if (isCallEndedRef.current) return;
     const SpeechRecognition =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
@@ -359,28 +443,74 @@ export default function VoiceInterviewPage() {
       recognition.lang = "en-US";
 
       recognition.onstart = () => {
+        if (isCallEndedRef.current) {
+          try { recognition.abort(); } catch {}
+          return;
+        }
         setIsListening(true);
       };
 
       recognition.onresult = (event: any) => {
+        if (isCallEndedRef.current) return;
+
         let interim = "";
-        let final = "";
+        let finalChunk = "";
 
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           const trans = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
-            final += trans;
+            finalChunk += trans;
           } else {
             interim += trans;
           }
         }
 
-        if (final.trim()) {
+        if (finalChunk.trim()) {
+          speechBufferRef.current = (speechBufferRef.current + " " + finalChunk.trim()).trim();
+        }
+
+        const candidateSpoken = (speechBufferRef.current + " " + interim.trim()).trim();
+        setLiveTranscript(candidateSpoken);
+
+        // Early stop phrases detection
+        const candidateSpokenLower = candidateSpoken.toLowerCase();
+        const stopPhrases = [
+          "end interview", "stop interview", "end the interview", "stop the interview",
+          "finish the interview", "finish interview", "quit interview", "i am done",
+          "i'm done", "wrap up now", "let's stop", "let's end", "exit interview", "please end",
+          "finish"
+        ];
+        if (stopPhrases.some((p) => candidateSpokenLower.includes(p))) {
+          if (speechSilenceTimerRef.current) {
+            clearTimeout(speechSilenceTimerRef.current);
+            speechSilenceTimerRef.current = null;
+          }
+          speechBufferRef.current = "";
           setLiveTranscript("");
-          addMsg("user", final.trim());
-          processCandidateAnswer(final.trim());
-        } else if (interim.trim()) {
-          setLiveTranscript(interim.trim());
+          addMsg("user", candidateSpoken || "End interview");
+          addMsg("system", "🛑 Candidate requested to conclude the interview. Wrapping up session now...");
+          handleEnd();
+          return;
+        }
+
+        // Reset silence debounce timer: Wait 2.8 seconds of continuous silence before sending!
+        if (speechSilenceTimerRef.current) {
+          clearTimeout(speechSilenceTimerRef.current);
+          speechSilenceTimerRef.current = null;
+        }
+
+        // Only start the silence countdown if the candidate has actually spoken words
+        if (speechBufferRef.current.trim().length > 0) {
+          speechSilenceTimerRef.current = setTimeout(() => {
+            if (isCallEndedRef.current) return;
+            const completeAnswer = speechBufferRef.current.trim();
+            if (completeAnswer.length > 0) {
+              speechBufferRef.current = "";
+              setLiveTranscript("");
+              addMsg("user", completeAnswer);
+              processCandidateAnswer(completeAnswer);
+            }
+          }, 2800);
         }
       };
 
@@ -388,12 +518,22 @@ export default function VoiceInterviewPage() {
         console.warn("Speech recognition notice:", e.error);
         if (e.error === "network" || e.error === "not-allowed" || e.error === "service-not-allowed") {
           setIsListening(false);
-          addMsg("system", "🎙️ Mic Note: If your browser (e.g. Brave) blocks Google Speech Services, you can speak and also click 'Submit Answer' or type your response in the box below!");
+          addMsg("system", "🎙️ Mic Note: If your browser blocks Speech Services, you can speak and also click 'Submit Answer' or type your response in the box below!");
         }
       };
 
       recognition.onend = () => {
         setIsListening(false);
+        if (isCallEndedRef.current) return;
+
+        // Keep speech recognition actively listening across candidate pauses/breaths
+        // until the silence timer explicitly finalizes the answer or candidate submits
+        if (!isSpeaking && isCalling) {
+          try {
+            recognition.start();
+            setIsListening(true);
+          } catch {}
+        }
       };
 
       recognitionRef.current = recognition;
@@ -405,7 +545,14 @@ export default function VoiceInterviewPage() {
 
   // Submit Answer (from Speech or Typed input)
   const submitManualAnswer = (customText?: string) => {
-    const ans = customText || typedAnswer || liveTranscript;
+    if (speechSilenceTimerRef.current) {
+      clearTimeout(speechSilenceTimerRef.current);
+      speechSilenceTimerRef.current = null;
+    }
+    const ans = customText || typedAnswer || speechBufferRef.current || liveTranscript;
+    speechBufferRef.current = "";
+    setLiveTranscript("");
+    setTypedAnswer("");
     if (!ans || !ans.trim()) return;
 
     if (recognitionRef.current) {
@@ -414,47 +561,141 @@ export default function VoiceInterviewPage() {
       } catch {}
     }
 
-    setLiveTranscript("");
-    setTypedAnswer("");
     addMsg("user", ans.trim());
     processCandidateAnswer(ans.trim());
   };
 
-  const processCandidateAnswer = (candidateAnswer: string) => {
+  const processCandidateAnswer = async (candidateAnswer: string) => {
+    if (isCallEndedRef.current) return;
+    setIsListening(false);
+    setIsSpeaking(false);
+
+    // Check if candidate wants to end early through typed or submitted text
+    const textLower = candidateAnswer.toLowerCase();
+    const stopPhrases = [
+      "end interview", "stop interview", "end the interview", "stop the interview",
+      "finish the interview", "finish interview", "quit interview", "i am done",
+      "i'm done", "wrap up now", "let's stop", "let's end", "exit interview"
+    ];
+    if (stopPhrases.some((p) => textLower.includes(p))) {
+      addMsg("system", "🛑 Candidate requested to conclude the interview. Generating evaluation...");
+      handleEnd();
+      return;
+    }
+
     const questionsToAsk = dynamicQuestions.length > 0
       ? dynamicQuestions
       : (ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"]);
-    const nextIdx = questionIndex + 1;
+    const currentQ = questionsToAsk[questionIndex] || "Tell me about your technical background and experience.";
+    const currentTurn = questionIndex + 1;
 
-    setIsListening(false);
+    // Abort controller to cancel request if user ends mid-flight
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
-    setTimeout(() => {
-      if (nextIdx < questionsToAsk.length) {
-        setQuestionIndex(nextIdx);
-        const rawQ = questionsToAsk[nextIdx];
-        const nextQ = rawQ.startsWith("Great") || rawQ.startsWith("Hello")
-          ? rawQ
-          : `Great response! Here is your next question: ${rawQ}`;
-        addMsg("assistant", nextQ);
-        speakWithBrowserVoice(nextQ, () => {
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/chat-turn", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          candidate_name: candidateName,
+          target_role: targetRole,
+          interview_level: interviewLevel,
+          resume_skills: resumeSkills,
+          current_question: currentQ,
+          candidate_answer: candidateAnswer,
+          turn_index: currentTurn,
+        }),
+      });
+
+      if (isCallEndedRef.current) return;
+
+      if (res.ok) {
+        const data = await res.json();
+        if (isCallEndedRef.current) return;
+
+        const isFinished = !!data.is_finished;
+        const speech = data.combined_speech || (isFinished
+          ? `Outstanding job ${candidateName}! That concludes our interview session today. Your comprehensive performance evaluation scorecard is now being prepared!`
+          : `${data.acknowledgement} ${data.next_question}`);
+
+        if (isFinished) {
+          // Automatic interview completion decided by AI interviewer
+          setQuestionIndex(currentTurn - 1);
+          addMsg("assistant", speech);
+
+          // Speak wrap up and automatically transition to evaluation
+          speakWithBrowserVoice(speech, () => {
+            handleAutoFinish();
+          });
+
+          // Safety timeout: Ensure transition occurs even if speech synthesis stalls
+          const maxSpeechMs = Math.min(Math.max(speech.length * 70, 4000), 9000);
+          autoFinishSafetyTimerRef.current = setTimeout(() => {
+            handleAutoFinish();
+          }, maxSpeechMs);
+          return;
+        }
+
+        // Advance to next question decided dynamically by AI
+        if (data.next_question) {
+          setDynamicQuestions((prev) => {
+            const copy = [...prev];
+            copy[currentTurn] = data.next_question;
+            return copy;
+          });
+        }
+
+        setQuestionIndex(currentTurn);
+        addMsg("assistant", speech);
+
+        speakWithBrowserVoice(speech, () => {
+          if (isCallEndedRef.current) return;
           startBrowserListening();
         });
+        return;
+      }
+    } catch (err: any) {
+      if (err.name === "AbortError") return;
+      console.warn("AI chat-turn notice (using fallback flow):", err);
+    }
+
+    if (isCallEndedRef.current) return;
+
+    // Fallback flow if network drops or errors
+    pendingTimeoutRef.current = setTimeout(() => {
+      if (isCallEndedRef.current) return;
+      if (currentTurn < questionsToAsk.length) {
+        setQuestionIndex(currentTurn);
+        const nextQNum = currentTurn + 1;
+        const rawQ = questionsToAsk[currentTurn] || "Can you discuss another challenging technical trade-off you solved?";
+        const nextQ = rawQ.startsWith("Question") ? rawQ : `Question ${nextQNum}: ${rawQ}`;
+        const combined = `Understood, good points on that approach. ${nextQ}`;
+        addMsg("assistant", combined);
+        speakWithBrowserVoice(combined, () => {
+          if (!isCallEndedRef.current) {
+            startBrowserListening();
+          }
+        });
       } else {
-        const wrapUp = `Thank you ${candidateName}. That concludes our mock interview session! You demonstrated strong technical insights for a ${interviewLevel} ${targetRole}. Great job!`;
+        const wrapUp = `Thank you ${candidateName}! That concludes our interview session today. You demonstrated solid technical communication for a ${interviewLevel} ${targetRole}. Generating your scorecard now!`;
         addMsg("assistant", wrapUp);
         speakWithBrowserVoice(wrapUp, () => {
-          setIsCalling(false);
-          setIsConnecting(false);
-          completeAndEvaluate();
+          handleAutoFinish();
         });
+        autoFinishSafetyTimerRef.current = setTimeout(() => {
+          handleAutoFinish();
+        }, 6000);
       }
-    }, 600);
+    }, 500);
   };
 
   // -------------------------------------------------------------
   // Start Voice Interview Flow
   // -------------------------------------------------------------
   const handleStart = async () => {
+    isCallEndedRef.current = false;
     setIsConnecting(true);
     await setupAudioAnalyzer();
 
@@ -472,6 +713,7 @@ export default function VoiceInterviewPage() {
         vapiRef.current = vapi;
 
         vapi.on("call-start", () => {
+          if (isCallEndedRef.current) return;
           setIsConnecting(false);
           setIsCalling(true);
           addMsg("system", "Voice AI Interview session initiated via Vapi! Listening...");
@@ -483,53 +725,170 @@ export default function VoiceInterviewPage() {
           setIsSpeaking(false);
           setVolumeLevel(0);
           addMsg("system", "Interview session completed.");
-        });
-
-        vapi.on("speech-start", () => setIsSpeaking(true));
-        vapi.on("speech-end", () => setIsSpeaking(false));
-        vapi.on("volume-level", (v: number) => setVolumeLevel(v));
-
-        vapi.on("message", (m: any) => {
-          if (m.type === "transcript" && m.transcriptType === "final") {
-            addMsg(m.role === "user" ? "user" : "assistant", m.transcript);
+          if (!isCallEndedRef.current) {
+            handleAutoFinish();
           }
         });
 
+        const flushVapiUser = () => {
+          if (vapiUserTimerRef.current) {
+            clearTimeout(vapiUserTimerRef.current);
+            vapiUserTimerRef.current = null;
+          }
+          const text = vapiUserBufferRef.current.trim();
+          if (text) {
+            vapiUserBufferRef.current = "";
+            setLiveTranscript("");
+            addMsg("user", text);
+          }
+        };
+
+        vapi.on("speech-start", () => {
+          if (isCallEndedRef.current) return;
+          flushVapiUser();
+          setIsSpeaking(true);
+        });
+        vapi.on("speech-end", () => {
+          setIsSpeaking(false);
+        });
+        vapi.on("volume-level", (v: number) => {
+          if (isCallEndedRef.current) return;
+          setVolumeLevel(v);
+        });
+        vapi.on("message", (msg: any) => {
+          if (isCallEndedRef.current) return;
+          if (msg?.type === "transcript") {
+            const role = msg?.role === "assistant" ? "assistant" : "user";
+            const text = (msg.transcript || "").trim();
+            if (!text) return;
+
+            if (role === "assistant") {
+              flushVapiUser();
+              if (msg.transcriptType === "final") {
+                addMsg("assistant", text);
+
+                // Dynamically update question counter & progress in Vapi mode
+                const match = text.match(/Question\s+(\d+)/i);
+                if (match) {
+                  const qNum = parseInt(match[1], 10);
+                  if (!isNaN(qNum) && qNum >= 1) {
+                    setQuestionIndex(qNum - 1);
+                  }
+                }
+
+                const textLower = text.toLowerCase();
+                // Automatically detect conclusion or stop command in Vapi
+                if (
+                  textLower.includes("conclude our interview") ||
+                  textLower.includes("that concludes our interview") ||
+                  textLower.includes("that concludes our session") ||
+                  textLower.includes("concludes our interview session") ||
+                  textLower.includes("scorecard is being generated") ||
+                  textLower.includes("scorecard is being prepared")
+                ) {
+                  setTimeout(() => {
+                    if (!isCallEndedRef.current) {
+                      handleEnd();
+                    }
+                  }, 2500);
+                }
+              }
+            } else {
+              // Candidate speech in Vapi mode
+              if (msg.transcriptType === "final") {
+                vapiUserBufferRef.current = (vapiUserBufferRef.current + " " + text).trim();
+                setLiveTranscript(vapiUserBufferRef.current);
+
+                const candidateSpokenLower = vapiUserBufferRef.current.toLowerCase();
+                if (
+                  candidateSpokenLower.includes("end interview") ||
+                  candidateSpokenLower.includes("stop interview") ||
+                  candidateSpokenLower.includes("finish interview") ||
+                  candidateSpokenLower.includes("end the interview") ||
+                  candidateSpokenLower.includes("quit interview") ||
+                  candidateSpokenLower.includes("finish")
+                ) {
+                  flushVapiUser();
+                  handleEnd();
+                  return;
+                }
+
+                // Debounce silence timer for Vapi candidate speech:
+                // Wait 2.2 seconds of silence before finalizing into candidate bubble
+                if (vapiUserTimerRef.current) {
+                  clearTimeout(vapiUserTimerRef.current);
+                }
+                vapiUserTimerRef.current = setTimeout(() => {
+                  flushVapiUser();
+                }, 2200);
+              } else {
+                setLiveTranscript((vapiUserBufferRef.current + " " + text).trim());
+              }
+            }
+          }
+        });
         vapi.on("error", (e: any) => {
+          console.warn("Vapi error event notice:", e);
           setIsConnecting(false);
           setIsCalling(false);
           addMsg("system", `Vapi Error: ${e?.message || "Connection failed. Please check your Vapi Public Key."}`);
         });
 
-        if (assistantId && !assistantId.includes("YOUR_")) {
-          await vapi.start(assistantId);
-        } else {
-          const systemPrompt = `You are an expert AI Technical Interviewer conducting a ${interviewLevel} mock interview for ${candidateName} applying for a ${targetRole} position.
+        const systemPrompt = `You are a Principal Technical Interviewer conducting an authentic, conversational ${interviewLevel} interview for ${candidateName} applying for a ${targetRole} role.
 Candidate Resume Skills & Technologies: ${resumeSkills || "Software Engineering, Core Development"}.
 
-Interview Directives:
-1. Calibrate all questions strictly to a ${interviewLevel} technical standard.
-2. Directly evaluate their hands-on competency in their stated resume skills (${resumeSkills || targetRole}).
-3. Ask ONE focused, concise question at a time and listen attentively to their response.
-4. Give a brief, encouraging acknowledgement of their response before presenting the next question.
-5. Begin immediately by warmly welcoming ${candidateName} to their ${interviewLevel} ${targetRole} interview and asking your first question based on their experience with ${resumeSkills ? resumeSkills.split(",")[0].trim() : targetRole}.`;
+Core Directives:
+1. ALWAYS ASK INTRODUCTION FIRST: Question 1 MUST ALWAYS BE THE CANDIDATE'S INTRODUCTION. You must start the session by asking the candidate to introduce themselves, walk through their background, and share an overview of their experience. Under NO circumstances should Question 1 ask technical problem-solving or coding questions.
+2. STARTING THE TECHNICAL INTERVIEW: Only AFTER the candidate has responded to Question 1 with their introduction, proceed to Question 2 to begin the technical interview questions matching the ${targetRole} role and ${interviewLevel} standard.
+3. CONVERSATIONAL AUTONOMY (NO 10-QUESTION LIMIT): There is NO rigid limit of 10 questions. You have total autonomy to ask whatever questions, scenario deep-dives, or follow-ups you feel are needed to assess the candidate's skills and thought process.
+4. CONCLUDING THE INTERVIEW: When you feel you have gathered sufficient signals across their background, problem-solving, and practical technical depth, naturally conclude the interview by saying: "Thank you ${candidateName}! That concludes our interview session today. Your comprehensive evaluation scorecard is now being prepared!" and end the call.
+5. EARLY TERMINATION: If the candidate says "end interview", "stop interview", "finish", or wants to exit, STOP ASKING QUESTIONS immediately and say: "Understood, ending the interview now. Thank you!"
+6. ACTIVE LISTENING: React directly to specific technical tools, patterns, and trade-offs the candidate mentions before advancing. Prefix questions cleanly with "Question X: ...".
+7. Standard: Calibrate your technical depth strictly to a ${interviewLevel} standard for the ${targetRole} position.`;
 
+        const introQ = `Question 1: Hello ${candidateName}! Welcome to your ${interviewLevel} interview for the ${targetRole} position. To get started, could you please introduce yourself, tell me about your background, and share an overview of your key skills and experience?`;
+
+        let tailoredFirstMessage = introQ;
+        if (dynamicQuestions.length > 0 && dynamicQuestions[0]) {
+          const firstCandidateQ = dynamicQuestions[0];
+          if (firstCandidateQ.toLowerCase().includes("introduce") || firstCandidateQ.toLowerCase().includes("introduction") || firstCandidateQ.toLowerCase().includes("background")) {
+            tailoredFirstMessage = firstCandidateQ;
+          }
+        }
+
+        const assistantOverrides: any = {
+          firstMessage: tailoredFirstMessage,
+          model: {
+            provider: "openai" as const,
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "system" as const,
+                content: systemPrompt,
+              },
+            ],
+          },
+          startSpeakingPlan: {
+            waitSeconds: 2.2,
+          },
+          variableValues: {
+            candidateName,
+            targetRole,
+            interviewLevel,
+            resumeSkills,
+          },
+        };
+
+        if (assistantId && !assistantId.includes("YOUR_")) {
+          await vapi.start(assistantId, assistantOverrides);
+        } else {
           const vapiConfig: any = {
             name: "AI Technical Interviewer",
-            firstMessage: `Hello ${candidateName}! Welcome to your ${interviewLevel} mock interview for the ${targetRole} role. To get started, I see you have experience with ${resumeSkills ? resumeSkills.split(",").slice(0, 2).join(" and ") : targetRole}. Could you introduce yourself and tell me about a project where you used these skills?`,
-            model: {
-              provider: "openai" as const,
-              model: "gpt-3.5-turbo",
-              messages: [
-                {
-                  role: "system" as const,
-                  content: systemPrompt,
-                },
-              ],
-            },
+            firstMessage: tailoredFirstMessage,
+            model: assistantOverrides.model,
+            startSpeakingPlan: assistantOverrides.startSpeakingPlan,
             voice: { provider: "11labs" as const, voiceId: "paula" },
           };
-          console.log("✅ Starting Vapi with tailored model configuration:", vapiConfig.model);
           await vapi.start(vapiConfig);
         }
         return;
@@ -551,13 +910,18 @@ Interview Directives:
         ? dynamicQuestions
         : (ROLE_QUESTIONS[targetRole] || ROLE_QUESTIONS["Behavioral & Leadership"]);
 
-      const firstQ = questionsToAsk[0];
+      let firstQ = questionsToAsk[0];
+      if (!firstQ || (!firstQ.toLowerCase().includes("introduce") && !firstQ.toLowerCase().includes("background"))) {
+        firstQ = `Question 1: Hello ${candidateName}! Welcome to your ${interviewLevel} interview for the ${targetRole} position. To get started, could you please introduce yourself, tell me about your background, and share an overview of your key skills and experience?`;
+      }
 
-      addMsg("system", `🎙️ Voice AI Interview started (${interviewLevel} · ${targetRole}). Questions tailored to your resume skills!`);
+      addMsg("system", `🎙️ Voice AI Interview started (${interviewLevel} · ${targetRole} · Adaptive Session). Question 1!`);
       addMsg("assistant", firstQ);
 
       speakWithBrowserVoice(firstQ, () => {
-        startBrowserListening();
+        if (!isCallEndedRef.current) {
+          startBrowserListening();
+        }
       });
     } catch (err: any) {
       setIsConnecting(false);
@@ -566,29 +930,149 @@ Interview Directives:
     }
   };
 
-  const handleEnd = () => {
-    if (synthRef.current) {
-      synthRef.current.cancel();
+  // Called when all 10 questions are completed automatically
+  const handleAutoFinish = () => {
+    if (isCallEndedRef.current) return;
+    isCallEndedRef.current = true;
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
+    if (pendingTimeoutRef.current) {
+      clearTimeout(pendingTimeoutRef.current);
+      pendingTimeoutRef.current = null;
+    }
+    if (autoFinishSafetyTimerRef.current) {
+      clearTimeout(autoFinishSafetyTimerRef.current);
+      autoFinishSafetyTimerRef.current = null;
+    }
+    if (speechSilenceTimerRef.current) {
+      clearTimeout(speechSilenceTimerRef.current);
+      speechSilenceTimerRef.current = null;
+    }
+    if (vapiUserTimerRef.current) {
+      clearTimeout(vapiUserTimerRef.current);
+      vapiUserTimerRef.current = null;
+    }
+
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      try { window.speechSynthesis.cancel(); } catch {}
+    }
+    activeUtteranceRef.current = null;
+
     if (recognitionRef.current) {
-      try {
-        recognitionRef.current.abort();
-      } catch {}
+      try { recognitionRef.current.abort(); } catch {}
+      recognitionRef.current = null;
     }
+
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach((t) => t.stop());
       mediaStreamRef.current = null;
     }
-    if (vapiRef.current) {
-      try {
-        vapiRef.current.stop();
-      } catch {}
+    if (audioContextRef.current) {
+      try { audioContextRef.current.close(); } catch {}
+      audioContextRef.current = null;
     }
+
+    if (vapiRef.current) {
+      try { vapiRef.current.stop(); } catch {}
+      vapiRef.current = null;
+    }
+
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
     setIsCalling(false);
     setIsConnecting(false);
     setIsSpeaking(false);
     setIsListening(false);
     setVolumeLevel(0);
+
+    addMsg("system", "🎉 All 10 questions answered! Finalizing your AI performance evaluation scorecard...");
+    completeAndEvaluate();
+  };
+
+  // Called immediately when candidate clicks "End Interview" or requests early stop
+  const handleEnd = () => {
+    if (isCallEndedRef.current) return;
+    isCallEndedRef.current = true;
+
+    // 1. Immediately abort active network fetch
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+
+    // 2. Clear all scheduled timeouts
+    if (pendingTimeoutRef.current) {
+      clearTimeout(pendingTimeoutRef.current);
+      pendingTimeoutRef.current = null;
+    }
+    if (autoFinishSafetyTimerRef.current) {
+      clearTimeout(autoFinishSafetyTimerRef.current);
+      autoFinishSafetyTimerRef.current = null;
+    }
+    if (speechSilenceTimerRef.current) {
+      clearTimeout(speechSilenceTimerRef.current);
+      speechSilenceTimerRef.current = null;
+    }
+    if (vapiUserTimerRef.current) {
+      clearTimeout(vapiUserTimerRef.current);
+      vapiUserTimerRef.current = null;
+    }
+
+    // 3. Immediately silence browser speech synthesis
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
+    }
+    activeUtteranceRef.current = null;
+
+    // 4. Abort speech recognition immediately
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch {}
+      recognitionRef.current = null;
+    }
+
+    // 5. Stop all media stream audio tracks
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((t) => t.stop());
+      mediaStreamRef.current = null;
+    }
+    if (audioContextRef.current) {
+      try {
+        audioContextRef.current.close();
+      } catch {}
+      audioContextRef.current = null;
+    }
+
+    // 6. Force terminate Vapi cloud call
+    if (vapiRef.current) {
+      try {
+        vapiRef.current.stop();
+      } catch {}
+      vapiRef.current = null;
+    }
+
+    // 7. Clear timer
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
+    setIsCalling(false);
+    setIsConnecting(false);
+    setIsSpeaking(false);
+    setIsListening(false);
+    setVolumeLevel(0);
+
+    addMsg("system", "🛑 Interview ended. Finalizing your AI evaluation scorecard...");
     completeAndEvaluate();
   };
 
@@ -599,7 +1083,10 @@ Interview Directives:
     try {
       const sessionStr = localStorage.getItem("ai_user_session");
       const userEmail = sessionStr ? JSON.parse(sessionStr).email : "candidate@example.com";
+      const fullTranscript = messagesRef.current.length > 0 ? messagesRef.current : messages;
       
+      console.log(`Saving interview transcript (${fullTranscript.length} messages) to MongoDB...`);
+
       // 1. Save Transcript
       const saveRes = await fetch("http://127.0.0.1:8000/api/save-transcript", {
         method: "POST",
@@ -609,24 +1096,27 @@ Interview Directives:
           user_name: candidateName,
           target_role: targetRole,
           interview_level: interviewLevel,
-          messages: messages.map(m => ({ role: m.role, text: m.text, ts: m.ts }))
+          messages: fullTranscript.map(m => ({ role: m.role, text: m.text, ts: m.ts }))
         })
       });
       const saveData = await saveRes.json();
       if (!saveRes.ok) throw new Error(saveData.detail || "Failed to save transcript");
       
       const transcriptId = saveData.transcript_id;
+      console.log("Transcript successfully stored in MongoDB. ID:", transcriptId);
       
       // 2. Evaluate Transcript
+      console.log("Calling evaluation endpoint for transcript:", transcriptId);
       const evalRes = await fetch(`http://127.0.0.1:8000/api/evaluate-transcript/${transcriptId}`, {
         method: "POST"
       });
       if (!evalRes.ok) throw new Error("Failed to evaluate transcript");
+      console.log("Evaluation generated and stored successfully!");
       
       // 3. Redirect
       router.push(`/result/${transcriptId}`);
     } catch (err: any) {
-      console.error(err);
+      console.error("Evaluation or save error:", err);
       addMsg("system", `Evaluation Error: ${err.message}`);
       setIsEvaluating(false);
     }
@@ -680,7 +1170,7 @@ Interview Directives:
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-800 flex flex-col relative overflow-hidden">
+    <main className="h-screen bg-slate-50 text-slate-800 flex flex-col relative overflow-hidden">
       {/* Ambient background glow */}
       <div
         className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl transition-all duration-700 pointer-events-none ${
@@ -868,24 +1358,30 @@ Interview Directives:
       {/* ── Evaluating Overlay ── */}
       {isEvaluating && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center max-w-sm text-center bg-white/10 p-6 rounded-3xl border border-white/20 backdrop-blur-xl shadow-2xl">
             <div className="w-16 h-16 rounded-full bg-indigo-500 flex items-center justify-center mb-4 shadow-sm">
                <svg className="w-8 h-8 text-white animate-spin" fill="none" viewBox="0 0 24 24">
                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                </svg>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Analyzing Performance</h2>
-            <p className="text-indigo-200 text-sm">Performance is being evaluated...</p>
+            <h2 className="text-xl font-bold text-white mb-2">Analyzing Performance</h2>
+            <p className="text-indigo-200 text-xs mb-4">AI is evaluating your communication, technical competence, and generating your scorecard...</p>
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="text-xs px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium transition-all cursor-pointer"
+            >
+              Skip to Dashboard
+            </button>
           </div>
         </div>
       )}
 
       {/* ── Main Layout Grid ── */}
-      <div className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-5 p-4 sm:p-6 max-w-7xl mx-auto w-full my-auto">
+      <div className="relative z-10 flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-5 p-4 sm:p-5 max-w-7xl mx-auto w-full overflow-hidden">
         
         {/* ── LEFT: Voice Visualizer & Controls ── */}
-        <div className="lg:col-span-5 flex flex-col items-center justify-between p-6 rounded-3xl bg-white/85 border border-slate-200 backdrop-blur-xl shadow-lg relative min-h-[420px]">
+        <div className="lg:col-span-5 flex flex-col justify-between p-5 sm:p-6 rounded-3xl bg-white/90 border border-slate-200 backdrop-blur-xl shadow-md h-full overflow-y-auto">
           
           {/* Header Status */}
           <div className="w-full flex items-center justify-between">
@@ -947,10 +1443,42 @@ Interview Directives:
               </p>
             ) : dynamicQuestions.length > 0 ? (
               <p className="text-[10px] text-emerald-600 font-semibold mt-1.5 flex items-center gap-1">
-                <span>✓</span> {dynamicQuestions.length} tailored questions ready
+                <span>✓</span> Adaptive AI questions ready
               </p>
             ) : null}
           </div>
+
+          {/* Active Question Card (Positioned clearly during interview) */}
+          {isCalling && (
+            <div className="w-full mt-3 p-3.5 rounded-2xl bg-indigo-50/90 border border-indigo-200 text-left shadow-xs">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+                  Active Question {questionIndex + 1}
+                </span>
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full border bg-white border-indigo-100 text-indigo-600">
+                  Adaptive Session
+                </span>
+              </div>
+
+              {/* Dynamic progress visual indicator */}
+              <div className="w-full flex items-center gap-2 my-2">
+                <div className="h-1.5 flex-1 rounded-full bg-indigo-100 overflow-hidden">
+                  <div
+                    className="h-full bg-indigo-600 rounded-full transition-all duration-500"
+                    style={{ width: `${Math.min((questionIndex + 1) * 12, 100)}%` }}
+                  />
+                </div>
+                <span className="text-[10px] font-semibold text-slate-500 shrink-0">
+                  Question {questionIndex + 1}
+                </span>
+              </div>
+
+              <p className="text-xs font-semibold text-slate-800 leading-relaxed">
+                {dynamicQuestions[questionIndex] || "Introduce yourself and discuss a key project using your core tech stack."}
+              </p>
+            </div>
+          )}
 
           {/* Concentric Pulsing Mic Visualizer */}
           <div className="relative flex items-center justify-center my-6">
@@ -978,21 +1506,26 @@ Interview Directives:
 
           {/* Real-time Listening Transcript Box */}
           {isCalling && (
-            <div className="w-full mb-3 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-center min-h-[38px] flex items-center justify-center">
+            <div className="w-full mb-3 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center min-h-[44px] flex items-center justify-center">
               {liveTranscript ? (
-                <p className="text-xs text-indigo-700 font-medium animate-pulse flex items-center gap-1.5 justify-center">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                  Hearing: &ldquo;{liveTranscript}&rdquo;
-                </p>
+                <div className="flex flex-col items-center gap-1">
+                  <p className="text-xs text-indigo-700 font-semibold animate-pulse flex items-center gap-1.5 justify-center">
+                    <svg className="w-4 h-4 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                    Listening: &ldquo;{liveTranscript}&rdquo;
+                  </p>
+                  <span className="text-[10px] text-slate-500 font-medium">
+                    (Take your time — pauses won&apos;t cut you off. Sends after a brief pause or click &apos;Submit Spoken Answer&apos;)
+                  </span>
+                </div>
               ) : isSpeaking ? (
                 <p className="text-xs text-purple-700 font-medium flex items-center gap-1.5 justify-center">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/></svg>
-                  AI Interviewer is asking question...
+                  AI Interviewer is speaking...
                 </p>
               ) : (
                 <p className="text-xs text-emerald-700 font-medium flex items-center gap-1.5 justify-center">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  Speak into your mic or use the text box on the right
+                  Listening... speak naturally, or type your answer on the right
                 </p>
               )}
             </div>
@@ -1105,7 +1638,7 @@ Interview Directives:
         </div>
 
         {/* ── RIGHT: Real-Time Conversation Transcript & Input Bar ── */}
-        <div className="lg:col-span-7 flex flex-col rounded-3xl bg-white/85 border border-slate-200 backdrop-blur-xl shadow-lg h-[490px] lg:h-auto overflow-hidden">
+        <div className="lg:col-span-7 flex flex-col rounded-3xl bg-white/90 border border-slate-200 backdrop-blur-xl shadow-md h-[520px] lg:h-full min-h-0 overflow-hidden">
           {/* Transcript Header */}
           <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">

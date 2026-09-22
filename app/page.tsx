@@ -6,8 +6,22 @@ import Link from "next/link";
 export default function Home() {
   const [backendStatus, setBackendStatus] = useState<string>("Checking connection...");
   const [isBackendConnected, setIsBackendConnected] = useState<boolean | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
+    // Check if user is logged in
+    const session = localStorage.getItem("ai_user_session");
+    if (session) {
+      try {
+        const parsed = JSON.parse(session);
+        if (parsed.email) {
+          setIsLoggedIn(true);
+        }
+      } catch {
+        setIsLoggedIn(false);
+      }
+    }
+
     fetch("http://127.0.0.1:8000/")
       .then((res) => res.json())
       .then((data) => {
@@ -53,7 +67,7 @@ export default function Home() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/login"
+            href={isLoggedIn ? "/dashboard" : "/login"}
             className="w-full sm:w-auto px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base shadow-sm transition-all flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +76,7 @@ export default function Home() {
             Start Voice Interview
           </Link>
           <Link
-            href="/login"
+            href={isLoggedIn ? "/dashboard" : "/login"}
             className="w-full sm:w-auto px-8 py-4 rounded-full bg-white border border-slate-200 text-slate-900 font-semibold text-base hover:bg-slate-50 transition-all shadow-sm flex items-center justify-center"
           >
             View Dashboard
