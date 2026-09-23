@@ -1448,37 +1448,7 @@ Core Directives:
             ) : null}
           </div>
 
-          {/* Active Question Card (Positioned clearly during interview) */}
-          {isCalling && (
-            <div className="w-full mt-3 p-3.5 rounded-2xl bg-indigo-50/90 border border-indigo-200 text-left shadow-xs">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
-                  Active Question {questionIndex + 1}
-                </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full border bg-white border-indigo-100 text-indigo-600">
-                  Adaptive Session
-                </span>
-              </div>
 
-              {/* Dynamic progress visual indicator */}
-              <div className="w-full flex items-center gap-2 my-2">
-                <div className="h-1.5 flex-1 rounded-full bg-indigo-100 overflow-hidden">
-                  <div
-                    className="h-full bg-indigo-600 rounded-full transition-all duration-500"
-                    style={{ width: `${Math.min((questionIndex + 1) * 12, 100)}%` }}
-                  />
-                </div>
-                <span className="text-[10px] font-semibold text-slate-500 shrink-0">
-                  Question {questionIndex + 1}
-                </span>
-              </div>
-
-              <p className="text-xs font-semibold text-slate-800 leading-relaxed">
-                {dynamicQuestions[questionIndex] || "Introduce yourself and discuss a key project using your core tech stack."}
-              </p>
-            </div>
-          )}
 
           {/* Concentric Pulsing Mic Visualizer */}
           <div className="relative flex items-center justify-center my-6">
@@ -1504,32 +1474,7 @@ Core Directives:
             </div>
           </div>
 
-          {/* Real-time Listening Transcript Box */}
-          {isCalling && (
-            <div className="w-full mb-3 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center min-h-[44px] flex items-center justify-center">
-              {liveTranscript ? (
-                <div className="flex flex-col items-center gap-1">
-                  <p className="text-xs text-indigo-700 font-semibold animate-pulse flex items-center gap-1.5 justify-center">
-                    <svg className="w-4 h-4 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                    Listening: &ldquo;{liveTranscript}&rdquo;
-                  </p>
-                  <span className="text-[10px] text-slate-500 font-medium">
-                    (Take your time — pauses won&apos;t cut you off. Sends after a brief pause or click &apos;Submit Spoken Answer&apos;)
-                  </span>
-                </div>
-              ) : isSpeaking ? (
-                <p className="text-xs text-purple-700 font-medium flex items-center gap-1.5 justify-center">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/></svg>
-                  AI Interviewer is speaking...
-                </p>
-              ) : (
-                <p className="text-xs text-emerald-700 font-medium flex items-center gap-1.5 justify-center">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  Listening... speak naturally, or type your answer on the right
-                </p>
-              )}
-            </div>
-          )}
+
 
           {/* Interview Instructions (Only show before starting) */}
           {!isCalling && (
@@ -1578,15 +1523,7 @@ Core Directives:
               </button>
             ) : (
               <div className="flex flex-wrap items-center gap-2.5 w-full justify-center">
-                {/* Submit Spoken Answer Button */}
-                {liveTranscript && (
-                  <button
-                    onClick={() => submitManualAnswer()}
-                    className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer animate-bounce"
-                  >
-                    <span>✓ Submit Spoken Answer</span>
-                  </button>
-                )}
+
 
                 <button
                   onClick={handleMute}
@@ -1735,35 +1672,33 @@ Core Directives:
           </div>
 
           {/* ── Optional Quick Answer Input Bar ── */}
-          {isCalling && (
-            <div className="p-3 border-t border-slate-200 bg-slate-50/80 shrink-0">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  submitManualAnswer();
-                }}
-                className="flex items-center gap-2"
+          <div className="p-3 border-t border-slate-200 bg-slate-50/80 shrink-0">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitManualAnswer();
+              }}
+              className="flex items-center gap-2"
+            >
+              <input
+                type="text"
+                value={typedAnswer}
+                onChange={(e) => setTypedAnswer(e.target.value)}
+                placeholder="Type your answer or speak into microphone..."
+                className="flex-1 px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition-all"
+              />
+              <button
+                type="submit"
+                disabled={!typedAnswer.trim() && !liveTranscript}
+                className="px-4 py-2.5 rounded-xl bg-indigo-400 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1.5"
               >
-                <input
-                  type="text"
-                  value={typedAnswer}
-                  onChange={(e) => setTypedAnswer(e.target.value)}
-                  placeholder="Type your answer or speak into microphone..."
-                  className="flex-1 px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition-all"
-                />
-                <button
-                  type="submit"
-                  disabled={!typedAnswer.trim() && !liveTranscript}
-                  className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1.5"
-                >
-                  <span>Submit Answer</span>
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </form>
-            </div>
-          )}
+                <span>Submit Answer</span>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 

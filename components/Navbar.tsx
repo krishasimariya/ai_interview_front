@@ -31,7 +31,7 @@ export function Navbar() {
             </svg>
           </div>
           <span className="text-xl font-bold tracking-tight text-slate-900">
-            InterviewAI
+            MockMate
           </span>
         </Link>
 
@@ -46,12 +46,7 @@ export function Navbar() {
       <div className="flex items-center gap-3 text-sm font-medium">
         {isLoggedIn ? (
           <>
-            <Link
-              href="/dashboard"
-              className="px-4 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm text-xs font-semibold"
-            >
-              Go to Dashboard
-            </Link>
+
             <button
               onClick={handleLogout}
               className="px-4 py-2 rounded-full border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors shadow-sm hidden sm:block text-xs"

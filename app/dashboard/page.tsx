@@ -102,11 +102,7 @@ export default function DashboardPage() {
     }
   };
 
-  const handleSignOut = () => {
-    localStorage.removeItem("ai_user_session");
-    localStorage.removeItem("ai_interview_config");
-    router.push("/login");
-  };
+
 
   const handleFileChange = async (file: File | null) => {
     if (!file) return;
@@ -236,22 +232,10 @@ export default function DashboardPage() {
           </div>
 
           {/* User Profile Badge */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-sm">
-                {userName ? userName.charAt(0).toUpperCase() : "C"}
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-slate-800 leading-tight">{userName}</p>
-                <p className="text-[10px] text-slate-400 truncate max-w-[150px]">{userEmail}</p>
-              </div>
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-sm cursor-pointer" title={userName}>
+              {userName ? userName.charAt(0).toUpperCase() : "C"}
             </div>
-            <button
-              onClick={handleSignOut}
-              className="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600 text-slate-500 text-xs font-medium transition-all shadow-sm"
-            >
-              Sign Out
-            </button>
           </div>
         </header>
 
